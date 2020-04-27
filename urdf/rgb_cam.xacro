@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+
+<robot name="openArm_cam" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+	<!-- Base Camera Link -->
+	<link name="camera_base">
+	<inertial>
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<mass value="0.001" />
+		<inertia ixx="0.000001" ixy="0.0" ixz="0.0" iyy="0.000001" iyz="0.0" izz="0.000001" />
+	</inertial>
+	<visual>
+		<origin rpy="0.0 0 0" xyz="0 0 0" />
+		<geometry>
+			<box size="0.0005 0.0005 0.0005" />
+		</geometry>
+	</visual>
+	</link>
+
+	<!-- Camera Sensor -->
+	<sensor name="arm_cam" update_rate="20">
+		<parent link="camera_base" />
+		<origin xyz="0 0 0" rpy="0 0 0" />
+		<camera>
+			<image width="1920" height="1080" hfov="1.467822" format="RGB8" near="0.05" far="10" />
+		</camera>
+	</sensor>
+
+
+
+	<!-- Camera Gazebo -->
+	<gazebo reference="camera_base">
+		<sensor type="camera" name="camera1">
+			<always_on>true</always_on>
+			<visualize>true</visualize>
+			<update_rate>15.0</update_rate>
+			<camera name="arm_cam">
+				<pose>0 0 0 0 0 1.57</pose>
+				<horizontal_fov>1.467822</horizontal_fov>
+				<image>
+					<width>1920</width>
+					<height>1080</height>
+					<format>R8G8B8</format>
+				</image>
+				<clip>
+					<near>0.05</near>
+					<far>10</far>
+				</clip>
+			</camera>
+
+			<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+				<alwaysOn>true</alwaysOn>
+				<updateRate>0.0</updateRate>
+				<cameraName>openArm_cam/camera1</cameraName>
+				<imageTopicName>image_raw</imageTopicName>
+				<cameraInfoTopicName>camera_info</cameraInfoTopicName>
+				<frameName>camera_link</frameName>
+				<hackBaseline>0.0</hackBaseline>
+				<distortionK1>0.0</distortionK1>
+				<distortionK2>0.0</distortionK2>
+				<distortionK3>0.0</distortionK3>
+				<distortionT1>0.0</distortionT1>
+				<distortionT2>0.0</distortionT2>
+			</plugin>
+		</sensor>
+	</gazebo>
+
+
+</robot>
