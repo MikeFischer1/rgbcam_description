@@ -3,6 +3,19 @@
 <robot name="openArm_cam" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
 
+	<!-- Use world link for fixing the robot-->
+	<link name="world" />
+	<inertial>
+		<mass value="0.00001" />
+		<origin rpy="0 0 0" xyz="0 0 0" />
+		<inertia ixx="0.0" ixy="0.0" ixz="0.0" iyy="0.0" iyz="0.0" izz="0.0" />
+	</inertial>
+
+	<joint name="fixed" type="fixed">
+		<parent link="world" />
+		<child link="camera_base" />
+	</joint>
+
 	<!-- Base Camera Link -->
 	<link name="camera_base">
 	<inertial>
