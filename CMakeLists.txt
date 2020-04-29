@@ -10,7 +10,11 @@ project(rgbcam_description)
 find_package(catkin REQUIRED COMPONENTS
   urdf
   rospy
+  openni_camera
 )
+
+#Enable C++11
+add_compile_options(-std=c++11)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)

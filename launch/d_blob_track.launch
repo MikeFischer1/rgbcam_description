@@ -1,0 +1,14 @@
+<launch>
+        <arg name="image" default="depth_camera/color/image_raw"/>
+        <arg name="depth_image" default="depth_camera/depth/image_raw"/>
+        <arg name="camera_topic" default="depth_camera/depth/camera_info"/>
+        <!-- Do we want to publish our blobs to tf? -->
+        <arg name="publish_tf" default="true"/>
+
+
+  <node name="cmvision" pkg="cmvision" type="cmvision" args="image:=$(arg image)" output="screen">
+          <!-- Location of the cmvision color file -->
+          <param name="color_file" type="string"
+                 value="$(find rgbcam_description)/color_files/colors.txt" />
+</node>
+</launch>
